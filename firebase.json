@@ -9,10 +9,18 @@
     ],
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
   },
+  "functions": {
+    "source": "functions",
+    "runtime": "16"
+  },
   "emulators": {
     "hosting": {
       "host": "localhost",
-      "port": "5050"
+      "port": "7050"
+    },
+    "functions": {
+      "port": "8080",
+      "host": "localhost"
     }
   }
 }
