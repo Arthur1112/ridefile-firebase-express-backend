@@ -5,7 +5,6 @@ import { profile } from "./src/getProfile.js";
 import { dbConnect } from "./src/connectDB.js";
 import jwt from "jsonwebtoken";
 import mySecretKey from "./secret.js";
-import admin from "firebase-admin";
 
 const app = express();
 app.use(cors());
@@ -24,6 +23,12 @@ app.post("/login", async (req, res) => {
     .where("email", "==", email.toLowerCase())
     .where("password", "==", password)
     .get();
+  if (userCol.docs.length == 0) {
+    res
+      .status(401)
+      .send({ error: "1st Invalid Email or Password, please try again." });
+    return;
+  }
   let user = userCol.docs[0].data();
   if (!user) {
     res
@@ -61,3 +66,7 @@ app.post("/addNewProfile", async (req, res) => {
 });
 
 export const api = functions.https.onRequest(app);
+
+// app.listen(7050, () => {
+//   console.log("Listening on 7050");
+// });

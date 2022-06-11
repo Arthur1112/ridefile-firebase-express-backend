@@ -11,7 +11,7 @@
   },
   "functions": {
     "source": "functions",
-    "runtime": "16"
+    "runtime": "nodejs16"
   },
   "emulators": {
     "hosting": {
