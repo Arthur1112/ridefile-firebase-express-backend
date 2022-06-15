@@ -1,8 +1,7 @@
 import { dbConnect } from "./connectDB.js";
 
 export const profile = async (req, res) => {
-  const profileID = req.params.profileID;
-
+  const profileID = req.params.snapshot;
   const db = dbConnect();
   const profile = await db.collection("UserProfiles").get();
   // .then((snapshot) => setUserDetails(snapshot.data()));
