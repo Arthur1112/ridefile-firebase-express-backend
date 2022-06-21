@@ -19,14 +19,13 @@ const db = dbConnect();
 //   res.send("Yaaay we are connected!!!");
 // });
 
-app.post("/login", async (req, res) => {
+app.post("/login", (req, res) => {
   const { email, Userpassword } = req.body;
-  // const hash = bcrypt.hashSync(Userpassword, salt);
-  const userCol = await db
-    .collection("UserProfiles")
-    .where("email", "==", email.toLowerCase())
-    // .where("password", "===", hash)
-    .where("password", "==", Userpassword)
+  const hash = bcrypt.hashSync(Userpassword, salt);
+  db.collection("UserProfiles")
+    .where("email", "==", email)
+    .where("Userpassword", "==", hash)
+    // .where("password", "==", Userpassword)
     .get()
     .then((userCol) => {
       if (userCol.docs.length == 0) {
@@ -48,7 +47,7 @@ app.post("/login", async (req, res) => {
 
 // app.patch("/updateProfile/:id", updateProfile);
 
-app.patch("/updateProfile/:id", async (req, res) => {
+app.patch("/updateProfile/:id", (req, res) => {
   const { id } = req.params;
   if (!id) {
     res.status(401).send("Invalid request");
