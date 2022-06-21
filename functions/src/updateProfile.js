@@ -1,10 +1,12 @@
+import { dbConnect } from "./src/connectDB.js";
+
 export default function updateProfile(req, res) {
-  const { id } = user;
+  const { id } = req.params;
   if (!id) {
     res.status(401).send("Invalid request");
     return;
   }
-  const db = connectDb();
+  const db = dbConnect();
   db.collection("UserProfiles")
     .doc(id)
     .update(req.body)
